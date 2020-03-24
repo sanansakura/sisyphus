@@ -65,7 +65,7 @@ def read_cellenone_isolated_files(source_dir):
 
         data = pd.read_csv(isolated_filename, sep='\t')
 
-        data = data.dropna(subset=['XPos', 'YPos', 'X', 'Y'])
+        data = data.dropna(subset=['XPos', 'YPos', 'X', 'Y', 'ImageFile'])
 
         if data.empty:
             logging.info(f'no useful data in {isolated_filename}')
@@ -318,7 +318,7 @@ def glob_cellenone_data(filepaths, storage_name, tag_name=None, update=False, re
                 update=update,
                 remote_storage_name=remote_storage_name,
             )
-        except ValueError:
+        except (ValueError, FileNotFoundError):
             logging.exception(f'unable to process {library_id}, {filepath}')
 
 
